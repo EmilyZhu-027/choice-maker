@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choice-maker</title>
+    <style>
+        body {
+            background-color: #F0FFFF
+        }
+    </style>
+
+</head>
+<body>
+    <h1 style="color:#000080">Welcome to Choice-maker</h1>
+    <p style="color : #B8860B">The Choice-maker helps you to make choice by random selecting!</p>
+
+    <h2 style="color:#C71585">Generate a Random Number</h2>
+    <form action="{{ url_for('random_number') }}" method="POST">
+        Min Value: <input type="number" name="min_value" required><br>
+        Max Value: <input type="number" name="max_value" required><br>
+        <button type="submit">Generate</button>
+    </form>
+
+    {% if random_number %}
+        <h3>Random Number: {{ random_number }}</h3>
+    {% endif %}
+
+    <h2 style="color:#C71585">Generate a Random Choice</h2>
+    <form action="{{ url_for('random_option') }}" method="POST">
+        <label>Enter Options (Add multiple options below):</label><br>
+        <div id="option-fields">
+            <input type="text" name="option" placeholder="Option 1"><br>
+            <input type="text" name="option" placeholder="Option 2"><br>
+            <input type="text" name="option" placeholder="Option 3"><br>
+        </div>
+        <button type="button" onclick="addOption()">Add More Options</button><br><br>
+        <button type="submit">Generate Random Choice</button>
+    </form>
+
+    {% if random_choice %}
+        <h3 style="color:#4B0082">Random Choice: {{ random_choice }}</h3>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('create_room') }}" style ="color:red">Create Room</a>
+
+    <script>
+        function addOption() {
+            const newInput = document.createElement('input');
+            newInput.setAttribute('type', 'text');
+            newInput.setAttribute('name', 'option');
+            newInput.setAttribute('placeholder', 'Additional Option');
+            document.getElementById('option-fields').appendChild(newInput);
+            document.getElementById('option-fields').appendChild(document.createElement('br'));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Random Choice</title>
+</head>
+<body>
+    <h1>Random Choice Selector</h1>
+    <form method="POST">
+        <label for="choice">Enter options (separate by commas):</label><br>
+        <input type="text" name="choice" required><br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if selected_choice %}
+        <h2>Randomly selected option: {{ selected_choice }}</h2>
+    {% endif %}
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <br><a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>

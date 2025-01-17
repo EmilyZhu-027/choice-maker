@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote in Room {{ room_name }}</title>
+</head>
+<body>
+    <h1>Vote in Room: {{ room_name }}</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <h2>Choose your vote:</h2>
+        <label>
+            <input type="radio" name="vote" value="agree" required> Agree
+        </label><br>
+        <label>
+            <input type="radio" name="vote" value="disagree" required> Disagree
+        </label><br><br>
+
+        <button type="submit">Submit Vote</button>
+    </form>
+
+    <h3>Current Votes:</h3>
+    <p>Agree: {{ votes['agree'] }}</p>
+    <p>Disagree: {{ votes['disagree'] }}</p>
+
+    <br>
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>
